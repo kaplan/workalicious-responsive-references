@@ -9,3 +9,22 @@
 **Version Control**  
 Git Version Control setup on git.workalicio.us server. Use the [Git Version Control on Media Temple](http://yo.follow-this.dev/git_setup_workalicio.us.md) markdown file as a guide.
 
+**Project Directory Tree**  
+    
+    .
+    ├── Cakefile
+    ├── Rakefile
+    ├── followthis.md
+    ├── index.html
+    ├── js
+    │   └── vendor
+    │       ├── gsap
+    │       └── jquery
+    ├── readme.md
+    ├── src
+    │   └── site.coffee
+    └── stylesheets
+        ├── main.scss
+        └── sass
+            ├── partials
+            └── vendor

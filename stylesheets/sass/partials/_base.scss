@@ -1,0 +1,156 @@
+@import "normalize";
+@import "bourbon/bourbon";
+@import "colors";
+@import "typography";
+
+
+@mixin set-guides($thickness:1px, $style: dotted, $color: $guideColor) {
+  outline: $thickness $style $color;
+}
+
+/* bourbon 5 will deprecated box-sizing, not sure why */
+*, *:after, *:before {
+  // @include box-sizing(border-box);
+  box-sizing: border-box;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+  visibility: hidden;
+  /*line-height: 0;*/
+  height: 0;
+}
+ 
+.clearfix:after {
+  clear: both; 
+}
+ 
+.clearfix {
+  *zoom: 1;
+}
+
+
+/*
+http://maximilianhoffmann.com/posts/better-font-rendering-on-osx
+Smooth the large Open Sans 
+*/
+// 
+@mixin font-smoothing($value: on) {
+  @if $value == on {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  } 
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+/*
+Usage: Smooth the large Open Sans
+*/
+// .dark-on-light {
+//     @include font-smoothing(off);
+// }
+
+// .light-on-dark {
+//     @include font-smoothing(on);
+// }
+
+
+
+
+// RESPONSIVE UNITS
+// 320, 480, 600, 768, 900, 1024, 1200 ( ie: take the 1200 / 16 = 75em )
+
+// 320px;
+$break-mobile: 20em;
+
+// 480px;
+$break-handheld: 30em;
+
+// 600px
+$break-small-tablet: 37.5em;
+
+// 768px
+$break-tablet: 48em;
+
+// 900px
+$break-desktop: 56.25em;
+
+// 1024px
+$break-large: 64.0625em;
+
+// 1200px
+$break-largest: 75em;
+
+
+// MOBILE FIRST
+// min-width means at least ...
+// only keyword would mean that repsond to the query only if you understand queries
+
+/* ==============================================
+@media only screen and (min-width: 330px)  {...}
+"If [device width] is greater than or equal to [specified #], then do {...}" 
+So if the actual "device width" is 320px this condition will return false. 
+"If 320px is greater than or equal to 330px, then do {...}" 
+============================================== */
+
+
+// @mixin respond-to($media) {
+//   @if $media == handhelds {
+//     @media screen and (min-width: $break-handheld) { @content; }
+//   }
+//   @else if $media == med_handhelds {
+//     @media screen and (min-width: $break-small-tablet) { @content; }
+//   }
+//   @else if $media == tablets {
+//     @media screen and (min-width: $break-tablet) { @content; }
+//   }
+//   @else if $media == desktop {
+//     @media only screen and (min-width: $break-desktop) { @content; }
+//   }
+//   @else if $media == screens {
+//     @media screen and (min-width: $break-large) { @content; }
+//   }
+//   @else if $media == wide_screens {
+//     @media screen and (min-width: $break-largest) { @content; }
+//   }
+// }
+
+
+// DESKTOP FIRST
+// max-width means not more than ...
+
+/* ==============================================
+@media only screen and (max-width: 330px)  {...}
+"If [device width] is less than or equal to [specified #], then do {...}"
+So based on this second example, if the "device width" is 320px the condition is true:
+"If 320px is less than or equal to 330px, then do {...}"
+============================================== */
+
+@mixin respond-to($media) {
+  @if $media == wide_screens {
+    @media screen and (max-width: $break-largest) { @content; }
+  }
+  @else if $media == screens {
+    @media screen and (max-width: $break-large) { @content; }
+  }
+  @else if $media == desktop {
+    @media only screen and (max-width: $break-desktop) { @content; }
+  }
+  @else if $media == tablets {
+    @media screen and (max-width: $break-tablet) { @content; }
+  }
+  @else if $media == med_handhelds {
+    @media screen and (max-width: $break-small-tablet) { @content; }
+  }  
+  @else if $media == handhelds {
+    @media screen and (max-width: $break-handheld) { @content; }
+  }
+  @else if $media == mobile {
+    @media screen and (max-width: $break-mobile) { @content; }
+  }
+}

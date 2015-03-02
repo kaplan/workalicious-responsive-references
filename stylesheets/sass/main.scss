@@ -1,0 +1,222 @@
+// if you tried to follow the SMACSS, need to read more about it.
+// BASE
+// LAYOUT
+// MODULE
+// STATE
+// THEME
+/* ===================================== */
+/* =====================================
+ BASE
+ No ids or classes here
+ ======================================= */
+
+ //   __  __  ___   ___            _______  ______   ________     
+ //  /_/\/_/\/__/\ /__/\         /_______/\/_____/\ /_______/\    
+ //  \:\ \:\ \::\ \\  \ \  ______\::: _  \ \:::_ \ \\__.::._\/    
+ //   \:\ \:\ \::\/_\ .\ \/______/\::(_)  \/\:\ \ \ \  \::\ \     
+ //    \:\ \:\ \:: ___::\ \__::::\/\::  _  \ \:\ \ \ \ _\::\ \__  
+ //     \:\_\:\ \: \ \\::\ \        \::(_)  \ \:\_\ \ /__\::\__/\ 
+ //      \_____\/\__\/ \::\/         \_______\/\_____\\________\/ 
+ //                                                               
+
+ // fat numbers: http://patorjk.com/software/taag/#p=display&h=0&f=Doh
+
+@import "partials/base";
+
+body {
+  
+  h1, h2, h4, h4, ul, li {
+    padding: 0;
+    margin: 0;
+  }
+
+  h1 {
+    font: 2em/1.2 "Open Sans", sans-serif;
+  }
+
+  // Responsive Debug div: display adaptive reference breaks
+  .adaptive-display-info {
+    /* Positioning */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+
+    /* Display & Box Model */
+    padding: 10px 8px;
+    // margin-bottom: 10px;
+    border: 1px solid #9d9d9d;
+    border-radius: 0px 10px 0px 0px;
+
+    /* Color */
+    color:#343434;
+    background-color: rgba(#f3f4f4, 0.85);
+
+    /* Text */
+    font-family: "Open Sans", sans-serif;
+    font-size: 1em;
+
+    &:after {
+      padding: 0px 4px;
+      background-color: #949595;
+      color: #f3f4f4;
+      content: "desktop";
+    }
+  }
+
+
+  // ====================================================== WIDE SCREENS 1200 and DOWN
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 1200 and smaller
+
+  @include respond-to(wide_screens) {
+
+
+    // @include background-size(100%);
+    background-color: $red;
+
+    // display adaptive reference
+    .adaptive-display-info:after {
+      background-color: $red;
+      content: "wide screens < 1200";
+    }
+  } // ====================================================== CLOSE WIDE SCREENS 1200 and DOWN
+
+
+
+
+
+
+  // ====================================================== SCREENS 1024 and DOWN
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 1024 and smaller 
+
+  @include respond-to(screens) {
+
+    background-color: $orange;
+
+    // display adaptive reference
+    .adaptive-display-info:after {
+      background-color: $orange;
+      content: "large screens < 1024";
+    }
+  } // ====================================================== CLOSE SCREENS 1024 and DOWN
+
+
+
+
+
+
+  // ====================================================== DESKTOPS 900 and DOWN
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 900 and smaller
+
+  @include respond-to(desktop) {
+
+    background-color: $yellow;
+
+    // display adaptive reference
+    .adaptive-display-info:after {
+      background-color: $yellow;
+      color: #9a856f;
+      content: "desktop < 900";
+    }
+  } // ====================================================== CLOSE DESKTOPS 900 and DOWN
+
+
+
+
+
+
+
+  // ====================================================== TABLETS 768 and DOWN
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 768 and smaller
+
+  @include respond-to(tablets) {
+  
+    // visual reference
+    background-color: $green;
+
+    // display adaptive reference
+    .adaptive-display-info:after {
+      background-color: $green;
+      color: #2A7F50;
+      content: "tablets < 768";
+    }
+  } // ====================================================== TABLETS 768 and  
+
+  
+
+
+
+  // ====================================================== MED HANDHELDS 600 and DOWN
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 600 and smaller
+
+  @include respond-to(med_handhelds) {
+
+    // visual reference
+    background-color: $blue;
+
+    // display adaptive reference
+    .adaptive-display-info:after {
+      background-color: $blue;
+      color: #6495B3;
+      content: "handhelds < 600";
+    }
+  } // ====================================================== CLOSE MED HANDHELDS 600 and DOWN
+
+
+
+
+
+
+  // ====================================================== HANDHELDS 480 and DOWN
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 480 and smaller
+
+  @include respond-to(handhelds) {
+
+    margin-bottom: 0; // have the page clear the footer height
+
+    // visual reference
+    background-color: $indigo;
+
+    // display adaptive reference
+    .adaptive-display-info {
+      &:after {
+        background-color: $indigo;
+        color: #f2eefc;
+        content: "handhelds < 480";
+      }
+    }
+  } // ====================================================== CLOSE HANDHELDS 480 and DOWN
+
+
+
+
+
+
+
+  // ====================================================== 320 and DOWN
+  // MOBILE 320
+
+  @include respond-to(mobile) {
+
+    // visual reference
+    background-color: $violet;  
+    
+    // display adaptive reference
+    .adaptive-display-info {
+      &:after {
+        background-color: $violet;
+        content: "mobile < 320 ";
+      }
+    }
+  } // ====================================================== CLOSE MOBILE 320 and DOWN
+  
+
+
+
+} // close body
