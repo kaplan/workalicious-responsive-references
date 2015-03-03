@@ -1,0 +1,390 @@
+// this file is acting like the base and the main files combined.
+// usually you would put this top section into a _base file, 
+// then import the base into the main.scss with `@import "partials/base"`
+
+@import "partials/normalize";
+@import "bourbon/bourbon";
+@import "partials/colors";
+@import "partials/typography";
+
+
+@mixin set-guides($thickness:1px, $style: dotted, $color: $guideColor) {
+  outline: $thickness $style $color;
+}
+
+/* bourbon 5 will deprecate box-sizing */
+*, *:after, *:before {
+  // @include box-sizing(border-box);
+  box-sizing: border-box;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+  visibility: hidden;
+  /*line-height: 0;*/
+  height: 0;
+}
+ 
+.clearfix:after {
+  clear: both; 
+}
+ 
+.clearfix {
+  *zoom: 1;
+}
+
+/*
+http://maximilianhoffmann.com/posts/better-font-rendering-on-osx
+Smooth the large Open Sans 
+*/
+// 
+@mixin font-smoothing($value: on) {
+  @if $value == on {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  } 
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+
+// RESPONSIVE UNITS
+// 320, 480, 600, 768, 900, 1024, 1200 ( ie: take the 1200 / 16 = 75em )
+
+// 320px;
+$break-mobile: 20em;
+
+// 480px;
+$break-handheld: 30em;
+
+// 600px
+$break-small-tablet: 37.5em;
+
+// 768px
+$break-tablet: 48em;
+
+// 900px
+$break-desktop: 56.25em;
+
+// 1024px
+$break-large: 64.0625em;
+
+// 1200px
+$break-largest: 75em;
+
+
+// MOBILE FIRST
+// min-width means at least ... or to any that is no less than
+// or in other words, apply a style to a browser that is no less than X
+// or another way, if the device is greater than XXXpx (or equal) then do this ...
+
+// `only` keyword would mean that repsond to the query only if you understand queries
+
+/* ==============================================
+@media only screen and (min-width: 330px)  {...}
+"If [device width] is greater than or equal to [specified #], then do {...}" 
+So if the actual "device width" is 320px this condition will return false. 
+"If 320px is greater than or equal to 330px, then do {...}" 
+============================================== */
+
+
+@mixin respond-to($media) {
+  @if $media == handhelds {
+    @media screen and (min-width: $break-handheld) { @content; }
+  }
+  @else if $media == med_handhelds {
+    @media screen and (min-width: $break-small-tablet) { @content; }
+  }
+  @else if $media == tablets {
+    @media screen and (min-width: $break-tablet) { @content; }
+  }
+  @else if $media == desktop {
+    @media only screen and (min-width: $break-desktop) { @content; }
+  }
+  @else if $media == screens {
+    @media screen and (min-width: $break-large) { @content; }
+  }
+  @else if $media == wide_screens {
+    @media screen and (min-width: $break-largest) { @content; }
+  }
+}
+
+
+
+// START what would be the main.scss file
+
+html {
+  height: 100%;
+}
+
+body {
+  
+  height: 100%;
+  
+  h1, h2, h4, h4, ul, li {
+    padding: 0;
+    margin: 0.5em;
+  }
+
+  h1 {
+    font: 2em/1.2 "Open Sans", sans-serif;
+    // margin: 0.5em;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  // Responsive Debug div: display adaptive reference breaks
+  .adaptive-display-info {
+    /* Positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    /* Display & Box Model */
+    padding: 10px 8px;
+    margin-top: 10px;
+    // border: 1px solid #9d9d9d;
+    border-radius: 0px 4px 4px 0px;
+
+    /* Color */
+    color: rgba(gray, 0.75);
+    background-color: rgba(#ffffff, 0.35);
+
+    /* Text */
+    font-family: "Open Sans", sans-serif;
+    font-size: 1em;
+
+    &:after {
+      padding: 0px 4px;
+      background-color: #949595;
+      color: #f3f4f4;
+      content: "desktop";
+    }
+  }
+
+  .is-flex-centered {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(white, 0.25);
+  }
+
+
+  // IF YOU ARE MOBILE FIRST, you'd use that smallest size as a defualt without a mixin
+  // THEN MOVE UP 
+
+
+  // ====================================================== 320 and DOWN and up to 480 or next break pt
+  //     ____  ___  ___ 
+  //    |_  / |_  |/ _ \
+  //   _/_ < / __// // /
+  //  /____//____/\___/ 
+  //                        
+  // MOBILE 320
+
+  // @include respond-to(mobile) {
+
+    h1 {
+      // transition: .5s;
+      color: rgba(white, 0.90);
+      font-size: 1em;
+      text-align: center;
+    }
+
+    // visual reference
+    background-color: $violet;  
+    
+    // display adaptive reference
+    .adaptive-display-info {
+      &:after {
+        background-color: $violet;
+        content: "default at mobile <=> 320 ";
+      }
+    }
+  // } // ====================================================== CLOSE MOBILE 320 and DOWN and up to next break pt
+
+
+  // ====================================================== HANDHELDS 480 and UP
+  //    ____  ___   ___ 
+  //   / / / ( _ ) / _ \
+  //  /_  _// _  |/ // /
+  //   /_/  \___/ \___/ 
+  //                        
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 480 and larger
+
+  @include respond-to(handhelds) {
+
+    h1 {
+      // transition: .5s;
+      color: rgba(white, 0.90);
+      text-align: center;
+    }
+
+    // visual reference
+    background-color: $indigo;
+
+    // display adaptive reference
+    .adaptive-display-info {
+      &:after {
+        background-color: $indigo;
+        color: rgba(white, 0.85);
+        content: "handhelds >= 480";
+      }
+    }
+  } // ====================================================== CLOSE HANDHELDS 480 and UP
+
+
+  // ====================================================== MED HANDHELDS 600 and UP
+  //     ____ ___   ___ 
+  //    / __// _ \ / _ \
+  //   / _ \/ // // // /
+  //   \___/\___/ \___/ 
+  //                    
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 600 and larger
+
+  @include respond-to(med_handhelds) {
+
+    h1 {
+      // transition: .5s;
+      color: rgba(black, 0.90);
+      text-align: center;
+    }
+
+    // visual reference
+    background-color: $blue;
+
+    // display adaptive reference
+    .adaptive-display-info:after {
+      background-color: $blue;
+      // color: rgba(29, 31, 33, 1);
+      content: "handhelds >= 600";
+    }
+  } // ====================================================== CLOSE MED HANDHELDS 600 and UP
+
+
+  // ====================================================== TABLETS 768 and UP
+  //     _____ ____ ___ 
+  //    /__  // __/( _ )
+  //      / // _ \/ _ |
+  //     /_/ \___/\___/ 
+  //            
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 768 and larger
+
+  @include respond-to(tablets) {
+  
+    h1 {
+      // transition: .5s;
+      // font-size: 1.25em;
+      // color: #a1f0b8;
+    }
+
+    // visual reference
+    background-color: $green;
+
+    // display adaptive reference
+    .adaptive-display-info:after {
+      background-color: $green;
+      color: rgba(29, 31, 33, 1);
+      content: "tablets >= 768";
+    }
+  } // ====================================================== TABLETS 768 UP  
+
+
+  // ====================================================== DESKTOPS 900 and UP
+  //      ___   ___   ___ 
+  //     / _ \ / _ \ / _ \
+  //     \_, // // // // /
+  //    /___/ \___/ \___/ 
+  //
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 900 and larger
+
+  @include respond-to(desktop) {
+
+    h1 {
+      // transition: .5s;
+      // font-size: 1.25em;
+      // color: rgba(gray, 0.75);
+    }
+
+    background-color: $yellow;
+
+    // display adaptive reference
+    .adaptive-display-info:after {
+      background-color: $yellow;
+      color: rgba(29, 31, 33, 1);
+      content: "desktop >= 900";
+    }
+  } // ====================================================== CLOSE DESKTOPS 900 and UP
+
+
+  // ====================================================== SCREENS 1024 and UP
+  //      ___ ___   ___  ____
+  //     <  // _ \ |_  |/ / /
+  //     / // // // __//_  _/
+  //    /_/ \___//____/ /_/                         
+  //                      
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 1024 and larger 
+
+  @include respond-to(screens) {
+
+    h1 {
+      // transition: .5s;
+      // font-size: 1.5em;
+      color: rgba(white, 0.75);
+    }
+
+    background-color: $orange;
+
+    // display adaptive reference
+    .adaptive-display-info:after {
+      background-color: $orange;
+      content: "large screens >= 1024";
+    }
+  } // ====================================================== CLOSE SCREENS 1024 and UP
+
+
+  // ====================================================== WIDE SCREENS 1200 and UP
+  //      ___ ___  ___   ___ 
+  //     <  /|_  |/ _ \ / _ \
+  //     / // __// // // // /
+  //    /_//____/\___/ \___/ 
+  //    
+  // +++++++++++++++++++++++++++++++
+  // RESPOND 1200 and larger
+
+  @include respond-to(wide_screens) {
+
+    h1 {
+      // transition: .5s;
+      // font-size: 2em;
+      font-size: 5vw;
+      color: rgba(white, 0.90);
+      @include font-smoothing(on);
+    }
+
+    // @include background-size(100%);
+    background-color: $red;
+
+    // display adaptive reference
+    .adaptive-display-info:after {
+      background-color: $red;
+      content: "wide screens >= 1200";
+    }
+  } // ====================================================== CLOSE WIDE SCREENS 1200 and UP
+
+
+} // close body

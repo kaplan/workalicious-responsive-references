@@ -297,3 +297,17 @@ To updated permissions with `chmod`:
 
     <!-- Compiled JS -->
     <script src="js/site.js"></script>
+
+
+
+### Mixins    
+Another way to write a mixin in SASS:  
+
+    @mixin red-text
+        color: #ff0000
+    
+    # could be written as:
+    =red-text
+        color: #ff0000
+
+Then add `+red-text` to your selectors

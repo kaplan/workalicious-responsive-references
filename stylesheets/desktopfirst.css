@@ -378,120 +378,113 @@ th {
 http://maximilianhoffmann.com/posts/better-font-rendering-on-osx
 Smooth the large Open Sans 
 */
-/*
-Usage: Smooth the large Open Sans
-*/
-/* ==============================================
-@media only screen and (min-width: 330px)  {...}
-"If [device width] is greater than or equal to [specified #], then do {...}" 
-So if the actual "device width" is 320px this condition will return false. 
-"If 320px is greater than or equal to 330px, then do {...}" 
-============================================== */
 /* ==============================================
 @media only screen and (max-width: 330px)  {...}
 "If [device width] is less than or equal to [specified #], then do {...}"
 So based on this second example, if the "device width" is 320px the condition is true:
 "If 320px is less than or equal to 330px, then do {...}"
 ============================================== */
-body h1, body h2, body h4, body h4, body ul, body li {
-  padding: 0;
-  margin: 0.5em; }
-body h1 {
-  font: 2em/1.2 "Open Sans", sans-serif; }
-body ul li {
-  list-style: none; }
-body ul li a {
-  color: RGBA(29, 31, 33, 1); }
-body .adaptive-display-info {
-  /* Positioning */
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  /* Display & Box Model */
-  padding: 10px 8px;
-  border: 1px solid #9d9d9d;
-  border-radius: 0px 10px 0px 0px;
-  /* Color */
-  color: #343434;
-  background-color: rgba(243, 244, 244, 0.85);
-  /* Text */
-  font-family: "Open Sans", sans-serif;
-  font-size: 1em; }
-  body .adaptive-display-info:after {
-    padding: 0px 4px;
-    background-color: #949595;
-    color: #f3f4f4;
-    content: "desktop"; }
-@media screen and (max-width: 75em) {
-  body {
-    background-color: Crimson; }
-    body h1 {
-      font-size: 5vw;
-      color: rgba(255, 255, 255, 0.9);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale; }
-    body .adaptive-display-info:after {
-      background-color: Crimson;
-      content: "wide screens < 1200"; } }
-@media screen and (max-width: 64.0625em) {
-  body {
-    background-color: OrangeRed; }
-    body h1 {
-      color: rgba(255, 255, 255, 0.75); }
-    body .adaptive-display-info:after {
-      background-color: OrangeRed;
-      content: "large screens < 1024"; } }
-@media only screen and (max-width: 56.25em) {
-  body {
-    background-color: Gold; }
-    body h1 {
-      color: rgba(128, 128, 128, 0.75); }
-    body .adaptive-display-info:after {
-      background-color: Gold;
-      color: #9a856f;
-      content: "desktop < 900"; } }
-@media screen and (max-width: 48em) {
-  body {
-    background-color: MediumSeaGreen; }
-    body h1 {
-      transition: .5s;
-      color: #a1f0b8; }
-    body .adaptive-display-info:after {
-      background-color: MediumSeaGreen;
-      color: #2A7F50;
-      content: "tablets < 768"; } }
-@media screen and (max-width: 37.5em) {
-  body {
-    background-color: LightSkyBlue; }
-    body h1 {
-      color: rgba(0, 0, 0, 0.9);
-      text-align: center; }
-    body .adaptive-display-info:after {
-      background-color: LightSkyBlue;
-      color: #6495B3;
-      content: "handhelds < 600"; } }
-@media screen and (max-width: 30em) {
-  body {
-    background-color: #4a20ad; }
-    body h1 {
-      transition: .5s;
-      color: rgba(255, 255, 255, 0.9);
-      text-align: center; }
-    body .adaptive-display-info:after {
-      background-color: #4a20ad;
-      color: #f2eefc;
-      content: "handhelds < 480"; } }
-@media screen and (max-width: 20em) {
-  body {
-    background-color: #9767d3; }
-    body h1 {
-      transition: .5s;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 1em;
-      text-align: center; }
-    body .adaptive-display-info:after {
-      background-color: #9767d3;
-      content: "mobile < 320 "; } }
+html {
+  height: 100%; }
 
-/*# sourceMappingURL=main.css.map */
+body {
+  height: 100%; }
+  body h1, body h2, body h4, body h4, body ul, body li {
+    padding: 0;
+    margin: 0.5em; }
+  body h1 {
+    font: 2em/1.2 "Open Sans", sans-serif; }
+  body p {
+    text-align: center; }
+  body .adaptive-display-info {
+    /* Positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    /* Display & Box Model */
+    padding: 10px 8px;
+    margin-top: 10px;
+    border-radius: 0px 4px 4px 0px;
+    /* Color */
+    color: rgba(128, 128, 128, 0.75);
+    background-color: rgba(255, 255, 255, 0.35);
+    /* Text */
+    font-family: "Open Sans", sans-serif;
+    font-size: 1em; }
+    body .adaptive-display-info:after {
+      padding: 0px 4px;
+      background-color: #949595;
+      color: #f3f4f4;
+      content: "desktop"; }
+  body .is-flex-centered {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.25); }
+  @media screen and (max-width: 75em) {
+    body {
+      background-color: Crimson; }
+      body h1 {
+        font-size: 5vw;
+        color: rgba(255, 255, 255, 0.9);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale; }
+      body .adaptive-display-info:after {
+        background-color: Crimson;
+        content: "wide screens < 1200"; } }
+  @media screen and (max-width: 64.0625em) {
+    body {
+      background-color: OrangeRed; }
+      body h1 {
+        color: rgba(255, 255, 255, 0.75); }
+      body .adaptive-display-info:after {
+        background-color: OrangeRed;
+        content: "large screens < 1024"; } }
+  @media only screen and (max-width: 56.25em) {
+    body {
+      background-color: Gold; }
+      body .adaptive-display-info:after {
+        background-color: Gold;
+        color: #1d1f21;
+        content: "desktop < 900"; } }
+  @media screen and (max-width: 48em) {
+    body {
+      background-color: MediumSeaGreen; }
+      body .adaptive-display-info:after {
+        background-color: MediumSeaGreen;
+        color: #1d1f21;
+        content: "tablets < 768"; } }
+  @media screen and (max-width: 37.5em) {
+    body {
+      background-color: LightSkyBlue; }
+      body h1 {
+        color: rgba(0, 0, 0, 0.9);
+        text-align: center; }
+      body .adaptive-display-info:after {
+        background-color: LightSkyBlue;
+        content: "handhelds < 600"; } }
+  @media screen and (max-width: 30em) {
+    body {
+      background-color: #4a20ad; }
+      body h1 {
+        color: rgba(255, 255, 255, 0.9);
+        text-align: center; }
+      body .adaptive-display-info:after {
+        background-color: #4a20ad;
+        color: rgba(255, 255, 255, 0.85);
+        content: "handhelds < 480"; } }
+  @media screen and (max-width: 20em) {
+    body {
+      background-color: #9767d3; }
+      body h1 {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1em;
+        text-align: center; }
+      body .adaptive-display-info:after {
+        background-color: #9767d3;
+        content: "mobile < 320 "; } }
+
+/*# sourceMappingURL=desktopfirst.css.map */

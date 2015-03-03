@@ -88,7 +88,10 @@ $break-largest: 75em;
 
 
 // MOBILE FIRST
-// min-width means at least ...
+// min-width means at least ... 
+// or in other words, apply a style to a browser that is no less than X
+// or another way, if the device is greater than XXXpx (or equal) then do this ...
+
 // only keyword would mean that repsond to the query only if you understand queries
 
 /* ==============================================
@@ -123,6 +126,10 @@ So if the actual "device width" is 320px this condition will return false.
 
 // DESKTOP FIRST
 // max-width means not more than ...
+// or another way, if a device is less than XXXpx than do this ...
+
+// for example, using max-width you can apply style rules to any browser that is no more than 480px wide
+// and using min-width, to any browser that is no less 480px wide
 
 /* ==============================================
 @media only screen and (max-width: 330px)  {...}

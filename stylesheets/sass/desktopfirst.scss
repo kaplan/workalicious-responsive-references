@@ -1,20 +1,131 @@
-// main.scss takes a 'desktop-first approach' but i'm breaking those 2 approaches out into individual files.
+// this file is acting like the base and the main files combined.
+// usually you would put this top section into a _base file, 
+// then import the base into the main.scss with `@import "partials/base"`
 
-@import "partials/base";
-
-//   __  __  ___   ___            _______  ______   ________     
-//  /_/\/_/\/__/\ /__/\         /_______/\/_____/\ /_______/\    
-//  \:\ \:\ \::\ \\  \ \  ______\::: _  \ \:::_ \ \\__.::._\/    
-//   \:\ \:\ \::\/_\ .\ \/______/\::(_)  \/\:\ \ \ \  \::\ \     
-//    \:\ \:\ \:: ___::\ \__::::\/\::  _  \ \:\ \ \ \ _\::\ \__  
-//     \:\_\:\ \: \ \\::\ \        \::(_)  \ \:\_\ \ /__\::\__/\ 
-//      \_____\/\__\/ \::\/         \_______\/\_____\\________\/ 
-//                                                               
-// fat numbers: http://patorjk.com/software/taag/#p=display&h=0&f=Doh
+@import "partials/normalize";
+@import "bourbon/bourbon";
+@import "partials/colors";
+@import "partials/typography";
 
 
+@mixin set-guides($thickness:1px, $style: dotted, $color: $guideColor) {
+  outline: $thickness $style $color;
+}
+
+/* bourbon 5 will deprecated box-sizing, not sure why */
+*, *:after, *:before {
+  // @include box-sizing(border-box);
+  box-sizing: border-box;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+  visibility: hidden;
+  /*line-height: 0;*/
+  height: 0;
+}
+ 
+.clearfix:after {
+  clear: both; 
+}
+ 
+.clearfix {
+  *zoom: 1;
+}
+
+
+/*
+http://maximilianhoffmann.com/posts/better-font-rendering-on-osx
+Smooth the large Open Sans 
+*/
+// 
+@mixin font-smoothing($value: on) {
+  @if $value == on {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  } 
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+// DESKTOP FIRST
+// max-width means not more than ...
+// or another way, if a device is less than XXXpx than do this ...
+
+// for example, using max-width you can apply style rules to any browser that is no more than 480px wide
+// and using min-width, to any browser that is no less 480px wide
+
+// RESPONSIVE UNITS
+// 320, 480, 600, 768, 900, 1024, 1200 ( ie: take the 1200 / 16 = 75em )
+
+// 320px;
+$break-mobile: 20em;
+
+// 480px;
+$break-handheld: 30em;
+
+// 600px
+$break-small-tablet: 37.5em;
+
+// 768px
+$break-tablet: 48em;
+
+// 900px
+$break-desktop: 56.25em;
+
+// 1024px
+$break-large: 64.0625em;
+
+// 1200px
+$break-largest: 75em;
+
+
+/* ==============================================
+@media only screen and (max-width: 330px)  {...}
+"If [device width] is less than or equal to [specified #], then do {...}"
+So based on this second example, if the "device width" is 320px the condition is true:
+"If 320px is less than or equal to 330px, then do {...}"
+============================================== */
+
+@mixin respond-to($media) {
+  @if $media == wide_screens {
+    @media screen and (max-width: $break-largest) { @content; }
+  }
+  @else if $media == screens {
+    @media screen and (max-width: $break-large) { @content; }
+  }
+  @else if $media == desktop {
+    @media only screen and (max-width: $break-desktop) { @content; }
+  }
+  @else if $media == tablets {
+    @media screen and (max-width: $break-tablet) { @content; }
+  }
+  @else if $media == med_handhelds {
+    @media screen and (max-width: $break-small-tablet) { @content; }
+  }  
+  @else if $media == handhelds {
+    @media screen and (max-width: $break-handheld) { @content; }
+  }
+  @else if $media == mobile {
+    @media screen and (max-width: $break-mobile) { @content; }
+  }
+}
+
+
+
+// START what would be the main.scss file
+
+html {
+  height: 100%;
+}
 
 body {
+  
+  height: 100%;
   
   h1, h2, h4, h4, ul, li {
     padding: 0;
@@ -26,32 +137,27 @@ body {
     // margin: 0.5em;
   }
 
-  ul li {
-    list-style: none;
-  }
-
-  ul li a {
-    color: RGBA(29, 31, 33, 1);
+  p {
+    text-align: center;
   }
 
   // Responsive Debug div: display adaptive reference breaks
   .adaptive-display-info {
     /* Positioning */
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     z-index: 1000;
-    // shorthand mixin style uses = instead of @mixin and + instead of include
 
     /* Display & Box Model */
     padding: 10px 8px;
-    // margin-bottom: 10px;
-    border: 1px solid #9d9d9d;
-    border-radius: 0px 10px 0px 0px;
+    margin-top: 10px;
+    // border: 1px solid #9d9d9d;
+    border-radius: 0px 4px 4px 0px;
 
     /* Color */
-    color:#343434;
-    background-color: rgba(#f3f4f4, 0.85);
+    color: rgba(gray, 0.75);
+    background-color: rgba(#ffffff, 0.35);
 
     /* Text */
     font-family: "Open Sans", sans-serif;
@@ -63,6 +169,15 @@ body {
       color: #f3f4f4;
       content: "desktop";
     }
+  }
+
+  .is-flex-centered {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(white, 0.25);
   }
 
 
@@ -143,7 +258,7 @@ body {
     h1 {
       // transition: .5s;
       // font-size: 1.25em;
-      color: rgba(gray, 0.75);
+      // color: rgba(gray, 0.75);
     }
 
     background-color: $yellow;
@@ -151,7 +266,7 @@ body {
     // display adaptive reference
     .adaptive-display-info:after {
       background-color: $yellow;
-      color: #9a856f;
+      color: rgba(29, 31, 33, 1);
       content: "desktop < 900";
     }
   } // ====================================================== CLOSE DESKTOPS 900 and DOWN
@@ -169,9 +284,9 @@ body {
   @include respond-to(tablets) {
   
     h1 {
-      transition: .5s;
+      // transition: .5s;
       // font-size: 1.25em;
-      color: #a1f0b8;
+      // color: #a1f0b8;
     }
 
     // visual reference
@@ -180,10 +295,10 @@ body {
     // display adaptive reference
     .adaptive-display-info:after {
       background-color: $green;
-      color: #2A7F50;
+      color: rgba(29, 31, 33, 1);
       content: "tablets < 768";
     }
-  } // ====================================================== TABLETS 768 and  
+  } // ====================================================== TABLETS 768 and DOWN
 
 
 
@@ -210,7 +325,7 @@ body {
     // display adaptive reference
     .adaptive-display-info:after {
       background-color: $blue;
-      color: #6495B3;
+      // color: rgba(29, 31, 33, 1);
       content: "handhelds < 600";
     }
   } // ====================================================== CLOSE MED HANDHELDS 600 and DOWN
@@ -229,7 +344,7 @@ body {
   @include respond-to(handhelds) {
 
     h1 {
-      transition: .5s;
+      // transition: .5s;
       color: rgba(white, 0.90);
       text-align: center;
     }
@@ -241,7 +356,7 @@ body {
     .adaptive-display-info {
       &:after {
         background-color: $indigo;
-        color: #f2eefc;
+        color: rgba(white, 0.85);
         content: "handhelds < 480";
       }
     }
@@ -260,7 +375,7 @@ body {
   @include respond-to(mobile) {
 
     h1 {
-      transition: .5s;
+      // transition: .5s;
       color: rgba(white, 0.90);
       font-size: 1em;
       text-align: center;
